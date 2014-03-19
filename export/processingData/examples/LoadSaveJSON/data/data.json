@@ -1,0 +1,82 @@
+{"bubbles": [
+  {
+    "position": {
+      "y": 179,
+      "x": 121
+    },
+    "diameter": 44.758068,
+    "label": "Melancholy"
+  },
+  {
+    "position": {
+      "y": 276,
+      "x": 506
+    },
+    "diameter": 52.25102233886719,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 183,
+      "x": 508
+    },
+    "diameter": 48.05594253540039,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 107,
+      "x": 473
+    },
+    "diameter": 58.462677001953125,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 92,
+      "x": 291
+    },
+    "diameter": 67.29624938964844,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 101,
+      "x": 262
+    },
+    "diameter": 78.69918060302734,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 122,
+      "x": 254
+    },
+    "diameter": 48.68109893798828,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 159,
+      "x": 274
+    },
+    "diameter": 73.21780395507812,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 146,
+      "x": 144
+    },
+    "diameter": 61.99894714355469,
+    "label": "New label"
+  },
+  {
+    "position": {
+      "y": 102,
+      "x": 92
+    },
+    "diameter": 57.35192108154297,
+    "label": "New label"
+  }
+]}
