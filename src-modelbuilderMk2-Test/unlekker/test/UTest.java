@@ -15,6 +15,8 @@ public class UTest extends UMB {
   
   public UTest() {
     name=this.getClass().getSimpleName();
+    
+    
   }
   
   public void init() {

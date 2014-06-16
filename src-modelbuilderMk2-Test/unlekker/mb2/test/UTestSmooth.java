@@ -38,7 +38,7 @@ public class UTestSmooth extends UTest {
     main.background(255f);
     
     main.stroke(255,200,0);
-    main.drawGrid();
+//    main.drawGrid();
     
     p.pushMatrix();
     p.translate(p.width/2, p.height/2);

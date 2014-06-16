@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.XML;
-import unlekker.mb2.externals.UMapping;
 import unlekker.mb2.externals.UXML;
 import unlekker.mb2.geo.UGeo;
 import unlekker.mb2.geo.UNav3D;
