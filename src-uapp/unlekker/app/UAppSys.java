@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import unlekker.mb2.util.UMB;
 
 public class UAppSys extends UMB {
-  boolean initialized;
+  protected boolean initialized;
   
   public UApp app;
   public PApplet p;
@@ -30,6 +30,10 @@ public class UAppSys extends UMB {
     
   }
 
+  public boolean initialized() {
+    return initialized;
+  }
+  
   public void reinit() {
     initialized=true;
     app.initColors();

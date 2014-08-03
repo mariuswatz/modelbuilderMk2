@@ -216,7 +216,15 @@ public class UTime extends UMB {
     
     return this;
   }
-  
+
+  public UTime addDay(int dayD) {
+    cal.setTimeInMillis(get());
+    cal.add(Calendar.DAY_OF_YEAR, dayD);
+    set(cal.getTimeInMillis());
+    
+    return this;
+  }
+
   public boolean isSameDay(UTime t1) {
     cal.setTimeInMillis(get());
     int dat[]=new int[] {
@@ -256,7 +264,7 @@ public class UTime extends UMB {
    * @return
    */
   public boolean before(long msec) {
-    return get()>msec;
+    return get()<msec;
   }
 
 //  public long duration() {

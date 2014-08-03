@@ -109,7 +109,7 @@ public class UApp extends UMB {
     conf.put(CONFPATH,UFile.getCurrentDir());
     conf.put(CONFDATAPATH,UFile.getCurrentDir());
     
-    conf.list();
+//    conf.list();
     appFlags=new HashMap<Integer,Integer>();
     return this;
   }

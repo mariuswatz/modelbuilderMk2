@@ -1,8 +1,10 @@
 package unlekker.data.test;
 
-import processing.core.PApplet;
+import processing.core.*;
+import unlekker.mb2.test.UTestMain;
 import unlekker.mb2.util.*;
-import unlekker.mb2.test.*;
+import unlekker.test.*;
+
 import java.util.*;
 
 public class UDataTest extends UTestMain {
@@ -10,7 +12,7 @@ public class UDataTest extends UTestMain {
   ArrayList<UTest> tests;
 
   public void setup() {    
-    size(1200,600, OPENGL);
+    size(1200,600);
     UTest.p=this;
     UTest.main=this;
     

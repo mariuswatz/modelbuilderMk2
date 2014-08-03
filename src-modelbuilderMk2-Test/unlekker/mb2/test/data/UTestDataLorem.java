@@ -2,7 +2,7 @@ package unlekker.mb2.test.data;
 
 import java.util.ArrayList;
 
-import unlekker.mb2.test.UTest;
+import unlekker.test.UTest;
 import unlekker.data.*;
 import java.util.*;
 

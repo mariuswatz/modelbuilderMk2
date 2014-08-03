@@ -16,6 +16,21 @@ public class UConfig extends Properties {
   public UConfig(String filename) {
     init(filename);
   }
+  
+  /**
+   * Creates a new by-value copy of this UConfig instance.
+   *  
+   * @return New UConfig copy
+   */
+  public UConfig copy() {
+    UConfig tmp=new UConfig();
+    
+    for(String key : getKeys()) {
+      tmp.put(key, get(key));
+    }
+    
+    return tmp;
+  }
 
   public void init(String filename) {
     FileInputStream in;
@@ -48,8 +63,8 @@ public class UConfig extends Properties {
     return this;
   }
 
-  public UConfig put(String key,boolean bool) {
-    setProperty(key, ""+bool);
+  public UConfig put(String key,boolean val) {
+    setProperty(key, ""+val);
     return this;
   }
 
@@ -60,6 +75,8 @@ public class UConfig extends Properties {
 
   public String get(String id) {
     id=checkKey(id);
+    if(id==null) return null;
+    
     return getProperty(id);
   }
 
@@ -87,28 +104,32 @@ public class UConfig extends Properties {
 
   public boolean getBool(String id, boolean defState) {
     id=checkKey(id);
+    if(id==null) return defState;
     
     String tmp=getProperty(id,""+defState).toLowerCase().trim();
     if(tmp.compareTo("true")==0) return true;
     return false;
   }
 
-  private String checkKey(String id) {
+  private String checkKey(String id) {    
     String idLo=id.toLowerCase();
     String res=null;
     
     for(String key:getKeys()) if(res==null) {
-      if(key.toLowerCase().compareTo(idLo)==0) res=key;
+      if(key.compareToIgnoreCase(idLo)==0) res=key;
     }
 
-    UMB.logf("id %s res %s",id,res);
+//    UMB.logf("id %s res %s",id,res);
     return res;
   }
 
   public int getInt(String id, int defVal) {
     int tmp;
+    
+    id=checkKey(id);
+    if(id==null) return defVal;
+    
     try {
-      id=checkKey(id);
       tmp=Integer.parseInt(getProperty(id,""+defVal));
     } catch (NumberFormatException e) {
       System.out.println(id+": "+e.toString());
@@ -119,7 +140,7 @@ public class UConfig extends Properties {
 
   public float getFloat(String id, float defVal) {
     id=checkKey(id);
-    return Float.parseFloat(getProperty(id,""+defVal));
+    return id==null ? defVal : Float.parseFloat(getProperty(id,""+defVal));
   }
 
   public void list() {

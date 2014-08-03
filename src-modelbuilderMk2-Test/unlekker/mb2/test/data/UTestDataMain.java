@@ -10,8 +10,7 @@ import unlekker.mb2.geo.UFace;
 import unlekker.mb2.geo.UGeo;
 import unlekker.mb2.geo.UNav3D;
 import unlekker.mb2.geo.UVertexList;
-import unlekker.mb2.test.UTest;
-import unlekker.mb2.test.UTestMain;
+import unlekker.mb2.test.*;
 import unlekker.mb2.util.UMB;
 import unlekker.mb2.util.UFile;
 
@@ -27,8 +26,9 @@ public class UTestDataMain extends UTestMain {
     UMB.log(sketchPath);
     
     tests=new ArrayList<UTest>();    
-    tests.add(new UTestDataLorem());
-    tests.add(new UTestDataTagging());
+    tests.add(new UTestDataList());
+//    tests.add(new UTestDataLorem());
+//    tests.add(new UTestDataTagging());
   }
 
   public void draw() {

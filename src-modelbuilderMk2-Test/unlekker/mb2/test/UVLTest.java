@@ -79,6 +79,7 @@ public class UVLTest extends PApplet {
     vl.pline(vl.centroid(), new UVertex());    
     vl.draw();
     
+   
     stroke(100,100,100,50);
     geo.bb().draw();
     

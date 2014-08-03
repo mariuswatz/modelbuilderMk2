@@ -52,4 +52,8 @@ public class UDataTagList extends UMB {
     return tmp;
   }
 
+  public String str() {
+    return strf("%s\t%d",
+        name,size());
+  }
 }
