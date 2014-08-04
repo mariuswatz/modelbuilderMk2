@@ -1,4 +1,4 @@
-### ModelbuilderMk2 - A computational geometry library for Processing
+## ModelbuilderMk2 - A computational geometry library for Processing
 ModelbuilderMk2 (previously Modelbuilder) is a computational geometry library for Processing. Its focus is to facilitate parametric and generative modeling of geometry, while minimizng complex math and repetitive code where possible. The library is based on a set of simplified data structures with corresponding workflows:
 
 UVertexList represents paths and edges, comprised of UVertex objects. UGeo stores mesh data and automates common mesh-generating operations (quad strips, triangle fans), providing tools to manipulate meshes as unified entities. Additional tools include mesh selection and traversal, export to STL and various time-saving hacks.
@@ -9,11 +9,16 @@ Borrowing an old concept recently popularized by JavaScript, ModelbuilderMk2 use
 
 ------------------------------
 
+### ModelbuilderMk2 and ITP NYU
 **ModelbuilderMk2 was created during my Fall 2013 research residency at NYU ITP,** coinciding with my teaching a class on [Parametric Design and Digital Fabrication](http://workshop.evolutionzone.com/itp-2013-parametric-design-for-digital-fabrication/). ModelbuilderMk2 ended up being the major focus of my residency, giving me the luxury of time to rewrite the library from scratch while adding features I discovered a need for in class.
 
 ModelbuilderMk2 also became a primary tool for teaching principles of parametric form in terms of low-level computational logic, providing an understanding of how geometry is constructed vertex-by-vertex as well as how simple generative principles can be injected into every aspect of the form-generating process to manipulate the outcome.
 
 [Code & Form blog](http://workshop.evolutionzone.com/) / [Marius Watz](http://mariuswatz.com)
+
+------------------------------
+
+### Updates
 
 #### August, 2014
 
@@ -38,7 +43,7 @@ the code for which was contributed by Dave Bollinger back in the day. Using PIma
 
 - **Fixed:** UVertexList.copy() had a bug related to UVertexLists that had been closed with the UVertexList.close() command, with vertices going missing due to being de-duplicated.
 
-## December 08, 2013
+#### December 08, 2013
 
 New:
 
@@ -53,7 +58,7 @@ Fixes:
 - Bug in ASCII STL import
 - Bugs in UGeoGenerator (scale() was used instead of scaleToDim())
 
-## December 08
+#### December 08
 
 New:
 
@@ -63,7 +68,7 @@ New:
 - UVertexList/UFace.isClockwise: Checks to see if face or vertex list is ordered in clockwise order.
 
 
-## December 06
+#### December 06
 
 New:
 
@@ -80,7 +85,7 @@ Fixes:
 - UVertexList.unclose() has been added to make it easier to deal with this kind of issue. The new reorder/shiftOrder methods use unclose().
 - Bug in UFile: nextFile() was broken. Now it isn't.
 
-## December 02
+#### December 02
 
 Good news: I found a way to optimize a big bottleneck in UGeo. By default, UGeo tries to eliminate duplicate vertices, which is a GOOD THING. But all that checking for duplicates becomes a BAD THING for complex meshes, resulting in calls to UVertex.equals() numbering in the hundreds of thousands.
 
@@ -100,7 +105,7 @@ In testing this does seem to speed things up quite a bit. Complex mesh building 
 - UColor: New class for generating color palettes, using gradients. This is a preliminary version, not extensively tested.
 - Added new examples.
 
-## November 13
+#### November 13
 
 **Discovered and fixed:** Nightmare bug in which UFace would calculate arbitray face normals. E(mbarrassing: I sorted the vertex ID array.) All recent builds are likely to contain the bug, so please download the most recent build (any build after Nov 12.)
 
@@ -112,18 +117,18 @@ In testing this does seem to speed things up quite a bit. Complex mesh building 
 
 I have yet to create Processing examples showing this functionality, but curious souls can look in "src-modelbuilderMk2-Test" to see test code.
 
-## November 12
+#### November 12
 
 Added ITP-Workshops, which will contain code from workshops I teach at ITP. Code from this weekend's "Sound as Data" workshop can be found there.
 
 I've made several minor and incremental changes to Modelbuilder, I added a few examples showing some of the nicer ones. I now use Ant to build the library, an archive of builds can be found in the "export" folder.
 
 
-## October 30
+#### October 30
 
 Added source folder "src-itp-sketches". It contains miscellaneous code demos and ModelbuilderMk2 tutorials demonstrated in the Parametric Design class at ITP. I've added some examples to the 
 
-## October 20
+#### October 20
 
 Plenty of incremental updates and fixes, notably the new UHeading class which supports aligning geometry and vertex lists to heading vectors given by two vertices. That piece of code is based on the [Apache Commons Mathematics Library](http://commons.apache.org/proper/commons-math),
 specifically the org.apache.commons.math.geometry package. 
@@ -131,7 +136,7 @@ specifically the org.apache.commons.math.geometry package.
 STL import has been added, see UGeoIO.readSTL().
 
 
-## Sept 28
+#### Sept 28
 
 ModelbuilderMk2: The core functionality of the library is now in place, offering a full replacement for the old Modelbuilder's geometry workflow. The new library design offers many subtle improvements along with some totally new tools. 
 
@@ -147,19 +152,19 @@ News:
 - Added UVertexList.resample(n), creates a resampled version of a UVertexList with "n" number of vertices. For now this function uses UVertexList.point(), which is not an ideal solution since it is based only on vertex indices rather than the actual vector length of the list.
 - Added UVertexList.copyNoDupl(), returns a copy of the given list with duplicate vertices removed.
 
-## Sept 7
+#### Sept 7
 
 ModelbuilderMk2: Added STL export and file utilities (UFile). The current code works with 2.0 and 1.5.1, but I'm not doing a packaged Processing-ready release just yet. If you're working in Eclipse or similar IDE you can download the code and plug it in.
 
-## Sept 6
+#### Sept 6
 
 Added first version of ModelbuilderMk2, which is a complete rewrite of Modelbuilder. Currently implemented (but incomplete): UVertex, UVertexLists, UGeo - basic features for mesh creation. STL output is not included yet.
 
-## Sept 5
+#### Sept 5
 
 Added ProcessingData library, which is a hack to make the Processing 2.0 Data API available for use in Processing 1.5.1.
 
-## Aug 30 
+#### Aug 30 
 
 Posted code for Modelbuilder-0020, which is compatible with Processing 1.5.1. We will eventually migrate to Processing 2.0, but for now 1.5.1 is a more stable platform and many of the Modelbuilder examples have not been updated to be compatible. This build uses ControlP5 0.5.4 by Andreas Schlegel, which can be [downloaded from his repository](https://code.google.com/p/controlp5/downloads/detail?name=controlP5_0.5.4.zip&can=2&q=).
 
