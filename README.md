@@ -1,4 +1,4 @@
-## ModelbuilderMk2 - A computational geometry library for Processing
+## ModelbuilderMk2
 ModelbuilderMk2 (previously Modelbuilder) is a computational geometry library for Processing. Its focus is to facilitate parametric and generative modeling of geometry, while minimizng complex math and repetitive code where possible. The library is based on a set of simplified data structures with corresponding workflows:
 
 UVertexList represents paths and edges, comprised of UVertex objects. UGeo stores mesh data and automates common mesh-generating operations (quad strips, triangle fans), providing tools to manipulate meshes as unified entities. Additional tools include mesh selection and traversal, export to STL and various time-saving hacks.
