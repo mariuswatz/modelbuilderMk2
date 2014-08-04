@@ -12,9 +12,30 @@ UVertexList represents paths and edges, comprised of UVertex objects. UGeo store
 Borrowing an old concept recently popularized by JavaScript, ModelbuilderMk2 uses operator chaining wherever possible, which makes code more compact and simplifies geometry manipulation. Admittedly, operator chaining can make code harder to read, but if combined with code auto-completion (PDE-X, Eclipse) it greatly simplifies development.
 
 
+## August, 2014
+
+Some good Modelbuilder news:
 
 
-## December 08
+- **New: unlekker.data** is an extension to ModelbuilderMk2 that deals with typical real-world data scenarios, from parsing, converting and preparing data for visualization. Similarly to how ModelbuilderMk2 uses UVertex and UVertexList to provide a workflow for creating mesh geometry, UDataPoint and UDataList represent data both in atomic and aggregated forms.
+
+	UDataPoint represents a single data point and stores data fields as a map of key-value pairs. This means that UDataPoint can store any kind of data, from primitive strings and numbers to object instances. The matching UDataList class allows you to collect and manipulate data sets of UDataPoint, conveniently automating tasks like calculating min/max/median/average bounds on time series data or extracting a list of all values for a given field.
+
+	Take a look at the examples folder "12-data" for a look at the data classes. Please note that this is my first attempt at this code, and as such may be prone to bugs or logical inconsistencies. I'm hoping this part of library will be useful for teaching, but it's got a way to go yet.
+
+
+- **New: unlekker.mb2.geo.UTileRender** adds tile rendering to ModelbuilderMk2, a popular feature that makes it possible to produce high-res output from OpenGL sketches by breaking the image into tiles. See "10-advanced/UTileRendering" example for a demo.
+
+	The most recent UTileRender registers "pre" and "post" methods with PApplet to take care of the rendering tasks, requiring a minimum of code to get working. Hopefully this automated approach works in all typical cases, let me know if you find a case where it doesn't.
+
+- **New: unlekker.mb2.UTargaProgressive** is a progressive Targa file encoder,
+the code for which was contributed by Dave Bollinger back in the day. Using PImage to store and encode a high res image has limitations in terms of memory usage, typically limiting resolutions to 8000x8000 or less.
+
+	UTargaProgressive is a perfect fix, as it encodes the image in row-sized chunks and flushes the data to disk as needed instead of holding the whole image in memory. If you pass a filename to UTileRender with a ".tga" extension UTargaProgressive will automatically be used.
+
+- **Fixed:** UVertexList.copy() had a bug related to UVertexLists that had been closed with the UVertexList.close() command, with vertices going missing due to being de-duplicated.
+
+## December 08, 2013
 
 New:
 

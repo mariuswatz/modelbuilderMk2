@@ -53,7 +53,14 @@ public class UVertexList extends UMB implements Iterable<UVertex> {
   public UVertexList copy() {
     UVertexList cvl=new UVertexList();
     cvl.setOptions(options);
+    
     for(UVertex vv:v) cvl.add(vv);
+    if(isClosed()) { // handle a closed list
+//      log(cvl.first().ID+" "+cvl.first().str()+
+//          " "+cvl.last().ID+" "+cvl.last().str());
+      cvl.remove(cvl.size()-1); // remove duplicate vertex
+      cvl.close();
+    }
     return cvl;
   }
   

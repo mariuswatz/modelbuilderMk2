@@ -1,9 +1,21 @@
+boolean doPerVertexColor=false;
 
 void keyPressed() {
   // toggle 
-  if(key==' ') doPerVertexColor=!doPerVertexColor;
+  if (key==' ') {
+    doPerVertexColor=!doPerVertexColor;
+    if (doPerVertexColor) {
+      geo.enable(UMB.COLORVERTEX);
+      geo.disable(UMB.COLORFACE );
+    }
+    else {
+      geo.disable(UMB.COLORVERTEX );
+      geo.enable(UMB.COLORFACE );
+    }
+  }
+
   // re-build if any non-special key is pressed
-  if(key!=CODED) {
+  else if (key!=CODED) {
     build();
     colorMesh();
   }
@@ -18,4 +30,3 @@ void drawCredit() {
   textAlign(LEFT);
   text(this.getClass().getSimpleName(), 5, 15);
 }
-

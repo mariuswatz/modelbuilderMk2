@@ -77,6 +77,8 @@ public class UTestMainGeo extends UTestMain {
 //    tests.add(new UTestSTLColor()); 
 
     tests.add(new UTestSmooth());
+    tests.add(new UTestTriangleFanBug());
+    
     
 //    tests.add(new UTestIntersectionCirc());
 //    tests.add(new UTestIntersection());
@@ -87,7 +89,7 @@ public class UTestMainGeo extends UTestMain {
 //    tests.add(new UTest2D()); 
     
     
-    int id=0;
+    int id;
     
     try {
       String dat[]=loadStrings("UTestMain.dat");
@@ -95,7 +97,8 @@ public class UTestMainGeo extends UTestMain {
     } catch (Exception e1) {
     }
     
-    id=6;
+//    id=6;
+    id=tests.size()-1;
     theTest=tests.get(id);
     
       initTest();

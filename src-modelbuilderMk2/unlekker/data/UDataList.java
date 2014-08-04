@@ -49,6 +49,7 @@ public class UDataList extends UMB implements Iterable<UDataPoint> {
   }
   
   
+  
   ////////////// NUMERIC ANALYSIS OF LISTS OF VALUES
 
   public static ArrayList<Float> normalizeFloatList(ArrayList<Float> val,boolean maxOnly) {
@@ -247,7 +248,13 @@ public class UDataList extends UMB implements Iterable<UDataPoint> {
     
     return range;
   }
-
+  
+  
+  public UDataList clear() {
+    data.clear();
+    return this;
+  }
+  
   public UDataPoint remove(int index) {
     return data.remove(index);
   }

@@ -15,9 +15,12 @@ void colorMesh() {
     lerp(red(col1), red(col2), fv[0].U), 
     lerp(green(col1), green(col2), fv[0].V), 
     lerp(blue(col1), blue(col2), fv[0].V));
+    
+    fv[0].setColor(col1);
+    fv[1].setColor(lerpColor(col1,col2,0.5));
+    fv[2].setColor(col2);
   }
 
   geo.enable(geo.COLORFACE); // enable per-face coloring
   println(geo.optionStr()); // print options string
 }
-
