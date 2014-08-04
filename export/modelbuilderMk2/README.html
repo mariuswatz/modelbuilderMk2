@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///C:/users/marius/appdata/local/temp/28.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><style>html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+  color:#444;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman',
+              "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
+  font-size:12px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 1em;
+  outline: 1300px solid #FAFAFA;
+}
+
+a{ color: #0645ad; text-decoration:none;}
+a:visited{ color: #0b0080; }
+a:hover{ color: #06e; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+span.backtick {
+  border:1px solid #EAEAEA;
+  border-radius:3px;
+  background:#F8F8F8;
+  padding:0 3px 0 3px;
+}
+
+::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
+::selection{background:rgba(255,255,0,0.3);color:#000}
+
+a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
+a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
+
+p{
+margin:1em 0;
+}
+
+img{
+max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+font-weight:normal;
+color:#111;
+line-height:1em;
+}
+h4,h5,h6{ font-weight: bold; }
+h1{ font-size:2.5em; }
+h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
+h3{ font-size:1.5em; }
+h4{ font-size:1.2em; }
+h5{ font-size:1em; }
+h6{ font-size:0.9em; }
+
+blockquote{
+color:#666666;
+margin:0;
+padding-left: 3em;
+border-left: 0.5em #EEE solid;
+}
+hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
+
+
+pre , code, kbd, samp { 
+  color: #000; 
+  font-family: monospace; 
+  font-size: 0.88em; 
+  border-radius:3px;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC; 
+}
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px 12px;}
+pre code { border: 0px !important; padding: 0;}
+code { padding: 0 3px 0 3px; }
+
+b, strong { font-weight: bold; }
+
+dfn { font-style: italic; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+li p:last-child { margin:0 }
+dd { margin: 0 0 0 2em; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+
+@media only screen and (min-width: 480px) {
+body{font-size:14px;}
+}
+
+@media only screen and (min-width: 768px) {
+body{font-size:16px;}
+}
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:12pt; max-width:100%; outline:none;}
+  a, a:visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+</style><title>README</title></head><body><h1 id="itp-nyu-fall-2013-parametric-design-for-digital-fabrication">ITP, NYU Fall 2013: Parametric Design for Digital Fabrication</h1>
+<p>Class for NYU ITP, Fall 2013. Instructor is <a href="http://mariuswatz.com/">Marius Watz</a>.<br>
+See the Code &amp; Form blog for a <a href="http://workshop.evolutionzone.com/itp-2013-parametric-design-for-digital-fabrication/">detailed description</a><br>
+Contact e-mail: marius at mariuswatz dot com<br>
+Class hours: Mondays 6:00pm – 8:55pm</p>
+<h2 id="december-08">December 08</h2>
+<p>New:</p>
+<ul>
+<li>UGeo.getQ(), UGeoGroup.getQ(): Returns UQuad face data from UGeoGroups of type QUADS or QUAD_STRIP. UQuad extends
+UFace, and most standard functions inherited from UFace should work as is. I haven't had a chance to look over the code in detail, so there might be some glitches.</li>
+<li>UGeoGenerator.geodesicSphere(): Creates geodesic sphere by subdividing an icosahedron to a specified level.</li>
+<li>geodesicSphere prototypes: Some standard mesh types are now stored internally for reuse, for instance spheres and geodesics. Pre-generated platonic solids are also included. </li>
+<li>The new methods related to prototypes are: UGeoGenerator.getPrototype(), UGeoGenerator.listPrototypes(), UGeoGenerator.addProtoType()</li>
+<li></li>
+</ul>
+<p>Fixes:</p>
+<ul>
+<li>Bug in ASCII STL import</li>
+<li>Bugs in UGeoGenerator (scale() was used instead of scaleToDim())</li>
+</ul>
+<h2 id="december-08_1">December 08</h2>
+<p>New:</p>
+<ul>
+<li>Added package: unlekker.mb2.externals. This will contain utility classes for interfacing ModelbuilderMk2 with other libraries, converting data structures as needed and giving access to useful tools not provided by ModelbuilderMk2 itself.</li>
+<li>unlekker.mb2.externals.UGeomerative: Converts data structures from the <a href="https://github.com/rikrd/geomerative/">Geomerative library by Ricard Marxer</a>. Geomerative is useful for reading SVG files and creating vertex outlines of the geometry they contain.</li>
+<li>unlekker.mb2.externals.UPoly2Tri: Interface to <a href="http://sites-final.uclouvain.be/mema/Poly2Tri/">Poly2Tri-java by Wu Liang</a>, making it possible to triangulate both simple (single-contour) and compound (contour with holes) polygons into a valid UGeo mesh. Especially useful for converting RPolygon geometry from Geometry to UGeo.</li>
+<li>UVertexList/UFace.isClockwise: Checks to see if face or vertex list is ordered in clockwise order.</li>
+</ul>
+<h2 id="december-06">December 06</h2>
+<p>New:</p>
+<ul>
+<li>UEdgeList.getBoundary: Returns edges that are only used by a single face, which means that they lie on the boundary of the mesh.</li>
+<li>UGeoGenerator.extrude: Creates an extruded version of a mesh by copying all faces and translating them along their vertex normals by a given offset. UEdgeList.getBoundary is used to find boundary edges and quads are created to fill in the gaps.</li>
+<li>UGeoGenerator.sphere: Generates sphere mesh.</li>
+<li>UVertexList: reorderToAngle(), reorderToPoint(), shiftOrder() - methods to reorder vertices </li>
+<li>UVertexList: unclose() - if the last vertex instance is identical to the first, remove it.</li>
+</ul>
+<p>Fixes:</p>
+<ul>
+<li>Bug in UVertexList: Transformation methods (scale(), rotX() etc.) did not take into account if a list was closed. Since close() adds another reference to the first UVertex to the end of the list, transformations would be applied twice to that instance. </li>
+<li>In all honesty, close() is a bit of a kludgy hack. It can cause unexpected behavior in a number of likely scenarios if not taken into account. I recommend using close() as late as possible in the geometry generation process. If subsequent manipulation is necessary, check isClosed() and apply unclose() if needed.</li>
+<li>UVertexList.unclose() has been added to make it easier to deal with this kind of issue. The new reorder/shiftOrder methods use unclose().</li>
+<li>Bug in UFile: nextFile() was broken. Now it isn't.</li>
+</ul>
+<h2 id="december-02">December 02</h2>
+<p>Good news: I found a way to optimize a big bottleneck in UGeo. By default, UGeo tries to eliminate duplicate vertices, which is a GOOD THING. But all that checking for duplicates becomes a BAD THING for complex meshes, resulting in calls to UVertex.equals() numbering in the hundreds of thousands.</p>
+<p>Mesh-building operations like quadstrip(UVertexList vl,UVertexList vl2) and quadstrip(ArrayList<uvertexlist> stack) can slow to a crawl for meshes with 1000+ vertices. Build times over a minute for a quadstrip operation is just embarrassing.</uvertexlist></p>
+<p>The fix:</p>
+<ul>
+<li>Pre-add all new vertices and only initializing UFaces with pre-calculated vertex IDs</li>
+<li>Add UGeo.removeDupl() to give the option to remove duplicates on demand</li>
+<li>Temporarily disable NODUPL for quadstrip(ArrayList<uvertexlist> stack), followed by a call to UGeo.removeDupl() to remove duplicate vertices and remap face vertex IDs</uvertexlist></li>
+</ul>
+<p>In testing this does seem to speed things up quite a bit. Complex mesh building will still take time, but should be much faster. </p>
+<p><strong>Other news:</strong></p>
+<ul>
+<li>UGeo.vertexNormals(): Calculate vertex normals (as opposed to face normals) for a mesh. Useful for displacing vertices along their normals, which will be more "natural" than simple random XYZ displacement</li>
+<li>UColor: New class for generating color palettes, using gradients. This is a preliminary version, not extensively tested.</li>
+<li>Added new examples.</li>
+</ul>
+<h2 id="november-13">November 13</h2>
+<p><strong>Discovered and fixed:</strong> Nightmare bug in which UFace would calculate arbitray face normals. E(mbarrassing: I sorted the vertex ID array.) All recent builds are likely to contain the bug, so please download the most recent build (any build after Nov 12.)</p>
+<p><strong>Added:</strong> Early (not heavily tested) versions of new classes I think will prove helpful in the future: </p>
+<ul>
+<li>UGeoGroup: Records UGeo mesh operations like quadstrip and trianglefan to facilitate subsequent manipulation.</li>
+<li>UGeoSelector: Tool to select faces in a UGeo mesh, including faces connected to a given face. Provides tools to draw a preview of the selection and to "grow" the current selection to include adjacent faces.</li>
+<li>UEdgeList / UEdge: Tools to represent the unique edges in a UGeo mesh. All UEdges store a record of faces connected to the edge, making it possible to find the connected faces for any given face.</li>
+</ul>
+<p>I have yet to create Processing examples showing this functionality, but curious souls can look in "src-modelbuilderMk2-Test" to see test code.</p>
+<h2 id="november-12">November 12</h2>
+<p>Added ITP-Workshops, which will contain code from workshops I teach at ITP. Code from this weekend's "Sound as Data" workshop can be found there.</p>
+<p>I've made several minor and incremental changes to Modelbuilder, I added a few examples showing some of the nicer ones. I now use Ant to build the library, an archive of builds can be found in the "export" folder.</p>
+<h2 id="october-30">October 30</h2>
+<p>Added source folder "src-itp-sketches". It contains miscellaneous code demos and ModelbuilderMk2 tutorials demonstrated in the Parametric Design class at ITP. I've added some examples to the </p>
+<h2 id="october-20">October 20</h2>
+<p>Plenty of incremental updates and fixes, notably the new UHeading class which supports aligning geometry and vertex lists to heading vectors given by two vertices. That piece of code is based on the <a href="http://commons.apache.org/proper/commons-math">Apache Commons Mathematics Library</a>,
+specifically the org.apache.commons.math.geometry package. </p>
+<p>STL import has been added, see UGeoIO.readSTL().</p>
+<h2 id="sept-28">Sept 28</h2>
+<p>ModelbuilderMk2: The core functionality of the library is now in place, offering a full replacement for the old Modelbuilder's geometry workflow. The new library design offers many subtle improvements along with some totally new tools. </p>
+<p>Some elements from the old code base (for instance USimpleGUI) are still missing. Given that many functions were added ad hoc and likely only used by myself, I will only re-implement  missing classes that seem important to common uses for the library.</p>
+<p>News:</p>
+<ul>
+<li>unlekker.mb2.geo.UNav3D has been re-implemented. If UNav3D is instantiated after UMB.setPApplet() has been called it will automatically register with that PApplet instance to receive events.</li>
+<li>unlekker.mb2.util.UBase (the base class that is extended by most of the core classes) has been renamed to unlekker.mb2.util.UMB for brevity and clarity. (For a second it was called UMbMk2, but that proved too hard to pronounce in class....)</li>
+<li>unlekker.mb2.geo.UTriangulate now offers triangulation of vertex sets that represent 2.5D topologies. It is based on Florian Jenett's code from <a href="http://wiki.processing.org/w/Triangulation">http://wiki.processing.org/w/Triangulation</a>, but it hasn't been extensively tested and appears to have some peculiarities.</li>
+<li>Added UGeo.triangulation(), adds faces produced by triangulation of a UVertexList. As with UTriangulate, this code has not been extensively tested.</li>
+<li>Added UVertexList.point(t), returns an interpolated vertex at position "t" along the vertex list. Ideally this should be done by accounting for actual length of the list, currently the calculation is done using the number of vertices so that t=0.5 of a list with 33 vertices will give an interpolation t=0.5 between the vertices at positions 16 and 17 (t*0.33= position 16 with 0.5 remainder)</li>
+<li>Added UVertexList.resample(n), creates a resampled version of a UVertexList with "n" number of vertices. For now this function uses UVertexList.point(), which is not an ideal solution since it is based only on vertex indices rather than the actual vector length of the list.</li>
+<li>Added UVertexList.copyNoDupl(), returns a copy of the given list with duplicate vertices removed.</li>
+</ul>
+<h2 id="sept-7">Sept 7</h2>
+<p>ModelbuilderMk2: Added STL export and file utilities (UFile). The current code works with 2.0 and 1.5.1, but I'm not doing a packaged Processing-ready release just yet. If you're working in Eclipse or similar IDE you can download the code and plug it in.</p>
+<h2 id="sept-6">Sept 6</h2>
+<p>Added first version of ModelbuilderMk2, which is a complete rewrite of Modelbuilder. Currently implemented (but incomplete): UVertex, UVertexLists, UGeo - basic features for mesh creation. STL output is not included yet.</p>
+<h2 id="sept-5">Sept 5</h2>
+<p>Added ProcessingData library, which is a hack to make the Processing 2.0 Data API available for use in Processing 1.5.1.</p>
+<h2 id="aug-30">Aug 30</h2>
+<p>Posted code for Modelbuilder-0020, which is compatible with Processing 1.5.1. We will eventually migrate to Processing 2.0, but for now 1.5.1 is a more stable platform and many of the Modelbuilder examples have not been updated to be compatible. This build uses ControlP5 0.5.4 by Andreas Schlegel, which can be <a href="https://code.google.com/p/controlp5/downloads/detail?name=controlP5_0.5.4.zip&can=2&q=">downloaded from his repository</a>.</p>
+<p>Modelbuilder is in bad need of restructuring. It currently suffers from an abundanc of ad hoc hackery and some poor design decisions, hardly surprising given that is my first serious attempt at writing a comprehensive geometry library. I plan to rewrite it from scratch as part of teaching this class.</p>
+<h2 id="code-resources-tutorials">Code resources + tutorials</h2>
+<ul>
+<li><a href="http://natureofcode.com/">Nature of Code</a> Daniel Shiffman (esp. <a href="http://natureofcode.com/book/chapter-1-vectors/">Chapter 1. Vectors</a>)</li>
+<li><a href="https://github.com/mariuswatz/modelbuilder">Modelbuilder</a>, Marius Watz (Processing library)</li>
+<li><a href="http://toxiclibs.org/">Toxiclibs.org,</a> Karsten Schmidt (Processing library)</li>
+<li><a href="http://hemesh.wblut.com/">Hemesh,</a> Frederik Vanhoutte (Processing library)</li>
+<li><a href="http://www.openprocessing.org/">OpenProcessing.org,</a> online community for the posting of Processing sketches (useful search terms: <a href="http://www.openprocessing.org/search/?q=geometry">"geometry"</a>, <a href="http://www.openprocessing.org/search/?q=geometry">"mesh"</a>, <a href="http://www.openprocessing.org/search/?q=architecture">"architecture"</a>)</li>
+</ul>
+<p>Remember: Learning by example is excellent, but always give credit (w/ linkbacks) where due. Appropriation of styles or creative content without modification or prior permission is laziness and will inevitably be discovered.</p>
+<h2 id="inspiration">Inspiration</h2>
+<ul>
+<li><a href="http://www.flickr.com/groups/digitalfabrication/">Flickr: Digital fabrication</a></li>
+<li><a href="http://pinterest.com/watzmarius/digital-fabrication/">pinterest/watz: Digital fabrication</a></li>
+<li><a href="http://pinterest.com/matsys/computational-design/">pinterest/Andrew Kudless</a></li>
+<li><a href="http://pinterest.com/trangng/texture-materiality/">pinterest/Trang Nguyen</a></li>
+<li><a href="http://parametricworld.tumblr.com/">Parametric World Tumblr</a></li>
+</ul>
+<p>As it turns out, Pinterest and Tumblr are excellent sources for inspiration and research, at least in the sense of providing an endless stream of images. Unfortunately, the widespread lack of proper accreditation can make it difficult to trace the origin of works and learn more about the context of their creation.</p></body></html>

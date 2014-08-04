@@ -65,8 +65,12 @@ public class UTestPrimitives extends UTest {
   public void draw() {
     p.fill(255);
     p.lights();
+    
+    
     p.translate(p.width/2, p.height/2);
     main.nav.doTransforms();
+    
+    
 
     p.noFill();
     p.stroke(255,150,0);
@@ -102,7 +106,7 @@ public class UTestPrimitives extends UTest {
 
   public void keyPressed(char key) {
     if(key=='r') geo.reverse(); 
-    if(key=='t') {
+    if(key=='R') {
       UFace f=rnd(geo.getF());
       f.translate(new UVertex(f.normal().copy().mult(rnd(10,30))));
     }

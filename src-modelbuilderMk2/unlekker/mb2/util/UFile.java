@@ -168,7 +168,7 @@ public class UFile implements UConst {
     
     try {
       ArrayList<String> l=list(path,pre,ext);
-      UMB.log(l);
+//      UMB.log(l);
       if(l.size()<1) return -1;
         
       int n=l.size()-1;

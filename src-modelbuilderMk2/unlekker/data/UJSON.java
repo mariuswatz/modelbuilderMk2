@@ -80,37 +80,39 @@ public class UJSON extends UMB {
   }
 
   public UDataPoint toData() {
-    UDataPoint pt=new UDataPoint();
-    
+    return toData(new UDataPoint());
+  }
+
+  public UDataPoint toData(UDataPoint obj) {
     for(String key : typeMap.keySet()) {
       Class cl=typeMap.get(key);
       
       if(cl==String.class) {
-        pt.addString(key, o.getString(key)); 
+        obj.addString(key, o.getString(key)); 
       }
       else if(cl==Integer.class) {
-        pt.addInt(key, o.getInt(key)); 
+        obj.addInt(key, o.getInt(key)); 
       }
       else if(cl==Long.class) {
-        pt.addLong(key, o.getLong(key)); 
+        obj.addLong(key, o.getLong(key)); 
       }
       else if(cl==Float.class) {
-        pt.addFloat(key, o.getFloat(key)); 
+        obj.addFloat(key, o.getFloat(key)); 
       }
       else if(cl==Double.class) {
-        pt.addDouble(key, o.getDouble(key)); 
+        obj.addDouble(key, o.getDouble(key)); 
       }
       else if(cl==Boolean.class) {
-        pt.addBoolean(key, o.getBoolean(key)); 
+        obj.addBoolean(key, o.getBoolean(key)); 
       }
       else {
-        if(cl==JSONObject.class) pt.addObject(key, o.getJSONObject(key));
-        if(cl==JSONArray.class) pt.addObject(key, o.getJSONArray(key));
+        if(cl==JSONObject.class) obj.addObject(key, o.getJSONObject(key));
+        if(cl==JSONArray.class) obj.addObject(key, o.getJSONArray(key));
       }
       
     }
     
-    return pt;
+    return obj;
   }
   
   

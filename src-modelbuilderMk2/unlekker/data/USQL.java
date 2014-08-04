@@ -9,6 +9,17 @@ import java.util.*;
 import processing.data.Table;
 import processing.data.TableRow;
 
+/**
+ * <p>Convenience class for easy SQLite access integrated with Processing and
+ * the unlekker.data package. Requires the 
+ * <a href="https://bitbucket.org/xerial/sqlite-jdbc/overview">SQLite JDBC libray</a> developed by Taro L. Saito.</p>  
+ * 
+ * <p>Use {@link USQL#queryToTable(String)} to execute a SQL query
+ * and have the result returned as a {@link processing.data.Table}.</p>  
+ * 
+ * @author marius
+ *
+ */
 public class USQL extends UMB {
   
   // load the sqlite-JDBC driver using the current class loader
@@ -97,7 +108,7 @@ public class USQL extends UMB {
     return tableNames;
   }
 
-  public Table getTable(String cmd) {
+  public Table queryToTable(String cmd) {
     Table dat=new Table();
 
     try {

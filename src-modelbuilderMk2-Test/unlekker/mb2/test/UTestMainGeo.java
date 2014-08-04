@@ -9,6 +9,7 @@ import processing.core.PApplet;
 import unlekker.mb2.geo.UFace;
 import unlekker.mb2.geo.UGeo;
 import unlekker.mb2.geo.UNav3D;
+import unlekker.mb2.geo.UTileRenderer;
 import unlekker.mb2.geo.UVertexList;
 import unlekker.mb2.util.UMB;
 import unlekker.mb2.util.UFile;
@@ -19,15 +20,20 @@ public class UTestMainGeo extends UTestMain {
   
   public UTest theTest;
   public UNav3D nav;
+  UTileRenderer tiler;
   
+
   public void setup() {
-    size(1200,600, OPENGL);
+    size(600,600, P3D);
     UTest.p=this;
     UTest.main=this;
+    
+
     
     UMB.setPApplet(this);
     sketchPath=UFile.getCurrentDir().charAt(0)+":/Users/marius/Dropbox/03 Code/ITP2013Parametric/nosync/data";
     UMB.log(sketchPath);
+    
     
 //    sketchPath="c:/Users/marius/Dropbox/40 Teaching/2013 ITP/ITP-Parametric - Resources/Code/ITP-Parametric-sketches/exportSketchDocu";
 //    
@@ -88,18 +94,32 @@ public class UTestMainGeo extends UTestMain {
       id=Integer.parseInt(dat[0]);
     } catch (Exception e1) {
     }
+    
+    id=6;
     theTest=tests.get(id);
     
       initTest();
   }
 
   public void draw() {
-    background(0);
-     color(255,255,255);
-    drawCredit();
+    background(100);
+//    camera();
+    
+    if(tiler!=null) {
+//      tiler.pre();
+      if(tiler.done) tiler=null;
+    }
+    else {
+      color(255,255,255);
+      drawCredit();
+    }
+    
+    
+
     
 //    pushStyle();
     try {
+//      tiler.pre();
       theTest.draw();
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -130,6 +150,16 @@ public class UTestMainGeo extends UTestMain {
   }
   
   public void keyPressed() {
+    if(key=='t') {
+      String filename=UFile.nextFile(UFile.getCurrentDir(), "Tile");
+      filename+=".tga";
+
+      tiler=new UTileRenderer(filename,filename.endsWith("png") ? 6 : 20);
+      tiler.start();
+//      nav.enabled=false;
+    }
+    
+
     if(key=='s') {
       String filename=UFile.nextFile(sketchPath, theTest.getClass().getSimpleName(), "png");
       println(filename);      
@@ -178,7 +208,7 @@ public class UTestMainGeo extends UTestMain {
   }
 
   static public void main(String args[]) {
-    PApplet.main(new String[] { "--bgcolor=#F0F0F0", "unlekker.mb2.test.UTestMain" });
+    PApplet.main(new String[] { "--bgcolor=#F0F0F0", "unlekker.mb2.test.UTestMainGeo" });
   }
 
   

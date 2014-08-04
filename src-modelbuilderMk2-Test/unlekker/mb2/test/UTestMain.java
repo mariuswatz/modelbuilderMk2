@@ -9,6 +9,7 @@ import processing.core.PApplet;
 import unlekker.mb2.geo.UFace;
 import unlekker.mb2.geo.UGeo;
 import unlekker.mb2.geo.UNav3D;
+import unlekker.mb2.geo.UTileRenderer;
 import unlekker.mb2.geo.UVertexList;
 import unlekker.mb2.util.UMB;
 import unlekker.mb2.util.UFile;
@@ -30,7 +31,9 @@ public class UTestMain extends PApplet {
     UMB.log(sketchPath);
     
     tests=new ArrayList<UTest>();    
+    
     cycleTest(1);
+    
   }
 
   public void draw() {
@@ -38,8 +41,10 @@ public class UTestMain extends PApplet {
      color(255,255,255);
     drawCredit();
     
+    
+    
     try {
-      theTest.draw();
+      if(theTest!=null) theTest.draw();
     } catch (Exception e) {
       e.printStackTrace();
       exit();

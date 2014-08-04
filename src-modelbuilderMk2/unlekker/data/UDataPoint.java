@@ -2,15 +2,21 @@ package unlekker.data;
 
 import java.util.*;
 
+import processing.data.JSONArray;
+import processing.data.JSONObject;
 import unlekker.mb2.util.UMB;
 
 public class UDataPoint extends UMB implements Comparable<UDataPoint> {
   private UTime time;
   private ArrayList<UDataTag> tags;
   private HashMap<String,Object> data;
+  private TreeSet<String> dataKeys; 
 
   public static String DATAFLOAT="Float";
   public static String DATAINT="Integer";
+  public static String DATALONG="Long";
+  public static String DATAJSONOBJECT="JSONObject";
+  public static String DATAJSONARRAY="JSONArray";
   public static String DATASTRING="String";
   public static String DATAOBJ="Object";
   
@@ -26,7 +32,13 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
     tags=new ArrayList<UDataTag>();
     data=new HashMap<String, Object>();
   }
-  
+
+  public UDataPoint(JSONObject o) {
+    this();
+    UJSON js=new UJSON(o);
+    js.toData(this);
+  }
+
   /////////////// TAGS
   
   public UDataPoint tag(UDataTag tag) {
@@ -106,11 +118,11 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
   }
 
   public String getString(String key) {
-    return (String)data.get(key);
+    return hasKey(key) ? (String)data.get(key) : "null";
   }
 
   public Object getObject(String key) {        
-    return data.get(key);
+    return hasKey(key) ? data.get(key) : null;
   }
 
   public String getClassName(String key) {
@@ -118,13 +130,26 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
     return o.getClass().getName();
   }
 
+  public UDataPoint remove(String key) {
+    if(hasKey(key)) {
+      data.remove(key);
+      keys();
+    }
+    
+    return this;
+  }
+  
   public String getValueType(String key) {
     String cl=getClassName(key);
     if(cl.contains(DATAFLOAT)) return DATAFLOAT;
     if(cl.contains(DATAINT)) return DATAINT;
     if(cl.contains(DATASTRING)) return DATASTRING;
+    if(cl.contains(DATALONG)) return DATALONG;
+    if(cl.contains(DATAJSONARRAY)) return DATAJSONARRAY;
+    if(cl.contains(DATAJSONOBJECT)) return DATAJSONOBJECT;
     
-    return DATAOBJ;
+    
+    return DATAOBJ+"="+cl;
   }
   
   public String getValue(String key) {
@@ -133,7 +158,20 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
       
       if(type==DATAFLOAT) return ""+getFloat(key);
       if(type==DATAINT) return ""+getInt(key);
+      if(type==DATALONG) return ""+getLong(key);
       if(type==DATASTRING) return getString(key);
+      if(type==DATASTRING) return getString(key);
+      if(type==DATAJSONOBJECT) {
+        
+        JSONObject jj=((JSONObject)getObject(key));
+        
+        return DATAJSONOBJECT+"["+UMB.str(jj.keys())+"]";
+//        return ((JSONObject)getObject(key)).format(0);
+      }
+      if(type==DATAJSONARRAY) {
+        return DATAJSONARRAY+" "+((JSONArray)getObject(key)).size();
+//        return ((JSONObject)getObject(key)).format(0);
+      }
       
       Object o=getObject(key);
       return strf("%s[%s]", o.toString(),o.getClass().getName());
@@ -153,10 +191,12 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
   }
 
   public Set<String> keys() {
-    TreeSet<String> k=new TreeSet<String>();
-    for(String key : data.keySet()) k.add(key);
+    if(dataKeys!=null && dataKeys.size()==data.size()) return dataKeys;
     
-    return k;//data.keySet();
+    dataKeys=new TreeSet<String>();
+    for(String key : data.keySet()) dataKeys.add(key);
+    
+    return dataKeys;
   }
   
   public int size() {
@@ -200,7 +240,7 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
     
 //    buf.append('[');
     for(String key : keys()) {
-      buf.append('|');
+      if(buf.length()>0) buf.append('|');
       buf.append(key).append('=').append(getValue(key));      
     }
     buf.append(']');

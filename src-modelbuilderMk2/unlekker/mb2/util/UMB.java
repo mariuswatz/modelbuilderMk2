@@ -6,14 +6,7 @@ import java.security.MessageDigest;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Locale;
+import java.util.*;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -1655,6 +1648,20 @@ public class UMB implements UConst {
 
   public static String strf(String format,Object... args) {
     return String.format(Locale.US,format, args);
+  }
+
+  public static <T> String str(Set<T> o) {
+    ArrayList<T> l=new ArrayList<T>();
+    for(T tmp : o) l.add(tmp);
+    
+    return str(l,',',null);
+  }
+
+  public static <T> String str(Set<T> o,char delim,String enclosure) {
+    ArrayList<T> l=new ArrayList<T>();
+    for(T tmp : o) l.add(tmp);
+    
+    return str(l,delim,enclosure);
   }
 
   public static <T> String str(ArrayList<T> o) {
