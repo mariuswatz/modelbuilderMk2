@@ -8,11 +8,11 @@ UVertexList represents paths and edges, comprised of UVertex objects. UGeo store
 
 Borrowing an old concept recently popularized by JavaScript, ModelbuilderMk2 uses operator chaining wherever possible, which makes code more compact and simplifies geometry manipulation. Admittedly, operator chaining can make code harder to read, but if combined with code auto-completion (PDE-X, Eclipse) it greatly simplifies development.
 
-**ModelbuilderMk2 was created during my Fall 2013 research residency at NYU ITP,** coinciding with my teaching a class on [Parametric Design and Digital Fabrication](http://workshop.evolutionzone.com/itp-2013-parametric-design-for-digital-fabrication/). ModelbuilderMk2 ended up being the major focus of my residency, giving me the luxury of time to rewrite the library from scratch while adding features I discovered a need for in class.
+>**ModelbuilderMk2 was created during my Fall 2013 research residency at NYU ITP,** coinciding with my teaching a class on [Parametric Design and Digital Fabrication](http://workshop.evolutionzone.com/itp-2013-parametric-design-for-digital-fabrication/). ModelbuilderMk2 ended up being the major focus of my residency, giving me the luxury of time to rewrite the library from scratch while adding features I discovered a need for in class.
 
-ModelbuilderMk2 also became a primary tool for teaching principles of parametric form in terms of low-level computational logic, providing an understanding of how geometry is constructed vertex-by-vertex as well as how simple generative principles can be injected into every aspect of the form-generating process to manipulate the outcome.
+>ModelbuilderMk2 also became a primary tool for teaching principles of parametric form in terms of low-level computational logic, providing an understanding of how geometry is constructed vertex-by-vertex as well as how simple generative principles can be injected into every aspect of the form-generating process to manipulate the outcome.
 
-[Code & Form blog](http://workshop.evolutionzone.com/) / [Marius Watz](http://mariuswatz.com)
+>[Code & Form blog](http://workshop.evolutionzone.com/) / [Marius Watz](http://mariuswatz.com)
 
 
 ## August, 2014
