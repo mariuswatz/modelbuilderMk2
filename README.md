@@ -1,7 +1,4 @@
-ModelbuilderMk2 - A computational geometry library for Processing
-===============
-
-[Marius Watz](http://mariuswatz.com) - [Code blog](http://workshop.evolutionzone.com/)
+**ModelbuilderMk2 - A computational geometry library for Processing**
 
 ModelbuilderMk2 (previously Modelbuilder) is a computational geometry library for Processing. Its focus is to facilitate parametric and generative modeling of geometry, while minimizng complex math and repetitive code where possible. The library is based on a set of simplified data structures with corresponding workflows:
 
@@ -10,6 +7,12 @@ UVertexList represents paths and edges, comprised of UVertex objects. UGeo store
 **ModelbuilderMk2 prioritizes flexibility and ease of development** over optimal performance, but is still efficient enough to support realtime uses. Its primary design objective is to lower the threshold for non-experts wanting to experiment with computational geometry, without requiring an in-depth understanding of the data structures or math involved.
 
 Borrowing an old concept recently popularized by JavaScript, ModelbuilderMk2 uses operator chaining wherever possible, which makes code more compact and simplifies geometry manipulation. Admittedly, operator chaining can make code harder to read, but if combined with code auto-completion (PDE-X, Eclipse) it greatly simplifies development.
+
+**ModelbuilderMk2 was created during my Fall 2013 research residency at NYU ITP,** coinciding with my teaching a class on [Parametric Design and Digital Fabrication](http://workshop.evolutionzone.com/itp-2013-parametric-design-for-digital-fabrication/). ModelbuilderMk2 ended up being the major focus of my residency, giving me the luxury of time to rewrite the library from scratch while adding features I discovered a need for in class.
+
+ModelbuilderMk2 also became a primary tool for teaching principles of parametric form in terms of low-level computational logic, providing an understanding of how geometry is constructed vertex-by-vertex as well as how simple generative principles can be injected into every aspect of the form-generating process to manipulate the outcome.
+
+[Code & Form blog](http://workshop.evolutionzone.com/) / [Marius Watz](http://mariuswatz.com)
 
 
 ## August, 2014
