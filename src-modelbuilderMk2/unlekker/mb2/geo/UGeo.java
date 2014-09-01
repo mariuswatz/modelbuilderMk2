@@ -210,14 +210,17 @@ public class UGeo extends UMB  {
     int cnt=0,nf=faces.size();
     int modulus=nf/20;
     
-    for(UFace ff:faces) {
-      if((cnt++)%modulus==0) {
-        task.update(
-            map(cnt,0,nf-1,75,100),"getV.remapVID");
+    if(modulus>0) {
+      for(UFace ff:faces) {
+        if((cnt++)%modulus==0) {
+          task.update(
+              map(cnt,0,nf-1,75,100),"getV.remapVID");
 
+        }
+        ff.remapVID();
       }
-      ff.remapVID();
     }
+    
     
     ArrayList<UFace> remove=new ArrayList<UFace>();
     for(UFace ff:faces) {

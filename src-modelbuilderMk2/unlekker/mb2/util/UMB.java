@@ -419,6 +419,44 @@ public class UMB implements UConst {
   }
 
 
+//  public static UMB drawRoundedTube(float x1,float y1,float x2,float y2, float w,boolean extend) {
+//    UVertexList vl=new UVertexList();
+//    float n=9+(int)w/6;
+//    
+//    float d=PApplet.dist(x1,y1,x2,y2);
+//    
+//    for(int i=0; i<n; i++) {
+//      float x=map(i,0,n-1, -1,0);
+//      vl.add(x,circleYforX(x));      
+//    }
+//    
+//    vl.scale(w);
+//    
+//    for(int i=0; i<n; i++) {
+//      float x=map(i,0,n-1, 0,1);
+//      vl.add(x*w+d,circleYforX(x)*w);            
+//    }
+//    
+//    g.pushMatrix();
+//    g.translate(x1, y1);
+//    g.rotate(PApplet.atan2(y2-y1, x2-x1));
+//    
+//    g.beginShape(QUAD_STRIP); 
+//    for(UVertex v:vl) {
+//      pvertex(v);
+//      pvertex(v.set(v.x,-v.y));
+//    }
+//    g.endShape();
+//    
+//    g.popMatrix();
+//    return UMB.UMB;
+//  }
+  
+  public static UMB draw(float r,float r2) {
+    return pellipse(0,0, r, r2);
+  }
+  
+  
   public static UMB pellipse(float r,float r2) {
     return pellipse(0,0, r, r2);
   }
@@ -1033,6 +1071,13 @@ public class UMB implements UConst {
     for(T tmp : arr) l.add(tmp);
     return l;
   }
+  
+  static public final <T> ArrayList<T> toList(Set<T> arr) {
+    ArrayList<T> l=new ArrayList<T>();
+    for(T tmp : arr) l.add(tmp);
+    return l;
+  }
+
   static public final float[] toFloat(int[] val,float fval[]) {
     if(fval==null || fval.length!=val.length) fval=new float[val.length];
     

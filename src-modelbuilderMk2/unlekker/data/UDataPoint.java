@@ -6,27 +6,35 @@ import processing.data.JSONArray;
 import processing.data.JSONObject;
 import unlekker.mb2.util.UMB;
 
+
+/*
+ * - UDataPoint -> children 
+    - getChild() = UDataPoint
+    - getChildArray() = UDataList
+
+    - JSON: UJSON creates UDataPoint / UDataList
+ */
+
 public class UDataPoint extends UMB implements Comparable<UDataPoint> {
   private UTime time;
   private ArrayList<UDataTag> tags;
   private HashMap<String,Object> data;
   private TreeSet<String> dataKeys; 
 
+  
+  
   public static String DATAFLOAT="Float";
+  public static String DATADOUBLE="Double";  
   public static String DATAINT="Integer";
   public static String DATALONG="Long";
+  public static String DATAPOINT="UDataPoint";
+  public static String DATALIST="UDataList";
   public static String DATAJSONOBJECT="JSONObject";
   public static String DATAJSONARRAY="JSONArray";
   public static String DATASTRING="String";
   public static String DATAOBJ="Object";
   
-  public String title,description;
-
-  public UDataPoint(String title,String description) {
-    this();
-    this.title=title;
-    this.description=description;
-  }
+  public String title="none",description="none";
 
   public UDataPoint() {
     tags=new ArrayList<UDataTag>();
@@ -37,6 +45,22 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
     this();
     UJSON js=new UJSON(o);
     js.toData(this);
+  }
+
+  public UDataPoint(JSONObject o,String title) {
+    this(o);
+    setDescription(title, null);
+  }
+
+  public UDataPoint(String title,String description) {
+    this();
+    setDescription(title, description);
+  }
+
+  public UDataPoint setDescription(String title,String description) {
+    if(title!=null) this.title=title;
+    if(description!=null) this.description=description;
+    return this;
   }
 
   /////////////// TAGS
@@ -131,6 +155,12 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
   }
 
   public UDataPoint remove(String key) {
+    if(key.indexOf(',')>-1) {
+      String tok[]=key.split(",");
+      for(String s:tok) remove(s.trim());
+      return this;
+    }
+    
     if(hasKey(key)) {
       data.remove(key);
       keys();
@@ -157,19 +187,27 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
       String type=getValueType(key);
       
       if(type==DATAFLOAT) return ""+getFloat(key);
+      if(type==DATADOUBLE) return ""+getDouble(key);
       if(type==DATAINT) return ""+getInt(key);
       if(type==DATALONG) return ""+getLong(key);
       if(type==DATASTRING) return getString(key);
-      if(type==DATASTRING) return getString(key);
-      if(type==DATAJSONOBJECT) {
-        
+      if(type==DATAJSONOBJECT) {        
         JSONObject jj=((JSONObject)getObject(key));
-        
-        return DATAJSONOBJECT+"["+UMB.str(jj.keys())+"]";
+        return UJSON.jsonAttrib(jj);
+      }
+      
+      Object obj=getObject(key);
+      
+      if(type==DATAJSONARRAY) {
+        return DATAJSONARRAY+" "+((JSONArray)obj).size();
+//        return ((JSONObject)getObject(key)).format(0);
+      }
+      if(type==DATAPOINT) {
+        return DATAPOINT+" "+((UDataPoint)obj).str();
 //        return ((JSONObject)getObject(key)).format(0);
       }
       if(type==DATAJSONARRAY) {
-        return DATAJSONARRAY+" "+((JSONArray)getObject(key)).size();
+        return DATAJSONARRAY+" "+((JSONArray)obj).size();
 //        return ((JSONObject)getObject(key)).format(0);
       }
       
@@ -244,7 +282,8 @@ public class UDataPoint extends UMB implements Comparable<UDataPoint> {
       buf.append(key).append('=').append(getValue(key));      
     }
     buf.append(']');
-    buf.insert(0, '['+(time==null ? "" : time.str()));
+    buf.insert(0, '['+
+        (time==null ? "" : time.str()+","));
     
     return strBufDispose(buf);
   }

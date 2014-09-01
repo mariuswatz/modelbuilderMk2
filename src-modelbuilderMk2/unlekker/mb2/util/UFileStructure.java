@@ -25,14 +25,14 @@ public class UFileStructure extends UMB implements Comparable {
   }
 
   public UFileStructure(String path) {
-    this();
-    this.path=path;
+    this(new File(path));
   }
   
+
   public UFileStructure(File file) {
     this();
     isFile=file.isFile();
-    path=file.getAbsolutePath();
+    path=file.getAbsolutePath().replace('\\', '/');
     
     long t=file.lastModified();
     modified=new Date(t);
@@ -182,16 +182,16 @@ public class UFileStructure extends UMB implements Comparable {
     
 //    logf("processed: %s\n%d %d",path,dir.size(),files.size());
     
-    logDivider(path);
-    if(dir.size()>0) {
-      log("---dir");
-      log(str(dir));
-      
-    }
-    if(files.size()>0) {
-      log("---files");
-      log(str(files));
-    }
+//    logDivider(path);
+//    if(dir.size()>0) {
+//      log("---dir");
+//      log(str(dir));
+//      
+//    }
+//    if(files.size()>0) {
+//      log("---files");
+//      log(str(files));
+//    }
     return this;    
   }
 

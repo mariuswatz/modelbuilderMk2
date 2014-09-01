@@ -11,39 +11,48 @@ public class UJSON extends UMB {
   TreeMap<String,Class> typeMap;
   
   JSONObject o;
-  ArrayList<JSONObject> obj;
-  ArrayList<JSONArray> arr;
-  
-//  UDa
   
   public UJSON(JSONObject o) {
     this.o=o;
     
-    obj=new ArrayList<JSONObject>();
-    arr=new ArrayList<JSONArray>();
-    
     getTypes();
     
-    for(String key : typeMap.keySet()) {
-      Class cl=typeMap.get(key);
-      if(cl==JSONObject.class) obj.add(o.getJSONObject(key));
-      if(cl==JSONArray.class) arr.add(o.getJSONArray(key));
-    }
-    
-    String s="";
-    for(String key : typeMap.keySet()) {
-      if(s.length()>0) s+=", ";
-      s+=key+"|"+typeMap.get(key).getSimpleName();
-    }
-
+//    String s="";
+//    for(String key : typeMap.keySet()) {
+//      if(s.length()>0) s+=", ";
+//      s+=key+"|"+typeMap.get(key).getSimpleName();
+//    }
+//
 //    log("["+s+"]");
   }
   
-  public UJSON getChild(String id) {
+  public UDataList toDataList(String id) {
+    UDataList l=new UDataList();    
+    
+    try {
+      if(o.hasKey(id) && typeMap.get(id)==JSONArray.class) {
+        JSONArray arr=o.getJSONArray(id);
+        for(int i=0; i<arr.size(); i++) {
+          l.add(new UJSON(arr.getJSONObject(i)).toData());
+        }
+      }
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return l;
+  }
+
+  public UDataPoint toData() {
+    return toData(new UDataPoint());
+  }
+
+  public UDataPoint toData(String id) {
     try {
       if(o.hasKey(id) && typeMap.get(id)==JSONObject.class) {
-        log("getChild '"+id+"'");
-        return new UJSON(o.getJSONObject(id));
+        log("toData("+id+")");
+        return new UJSON(o.getJSONObject(id)).toData();
       }
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -53,35 +62,6 @@ public class UJSON extends UMB {
     return null;
   }
 
-  public ArrayList<UJSON> getChildArray(String id) {
-    ArrayList<UJSON> l=new ArrayList<UJSON>();
-    
-    try {
-      if(o.hasKey(id) && typeMap.get(id)==JSONArray.class) {
-        JSONArray arr=o.getJSONArray(id);
-        for(int i=0; i<arr.size(); i++) l.add(new UJSON(arr.getJSONObject(i)));
-      }
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-    return l;
-  }
-  
-  public UDataList toDataList(String id) {
-    ArrayList<UJSON> arr=getChildArray(id);
-//    log(arr.size());
-    
-    UDataList l=new UDataList();    
-    for(UJSON j : arr) l.add(j.toData());
-    
-    return l;
-  }
-
-  public UDataPoint toData() {
-    return toData(new UDataPoint());
-  }
 
   public UDataPoint toData(UDataPoint obj) {
     for(String key : typeMap.keySet()) {
@@ -106,10 +86,13 @@ public class UJSON extends UMB {
         obj.addBoolean(key, o.getBoolean(key)); 
       }
       else {
-        if(cl==JSONObject.class) obj.addObject(key, o.getJSONObject(key));
-        if(cl==JSONArray.class) obj.addObject(key, o.getJSONArray(key));
-      }
-      
+        if(cl==JSONObject.class) {
+          obj.addObject(key, toData(key));
+        }
+        if(cl==JSONArray.class) {
+          obj.addObject(key, toDataList(key));
+        }
+      }      
     }
     
     return obj;
@@ -135,12 +118,6 @@ public class UJSON extends UMB {
   
   public Class getType(String key) {
     String type="null";
-    
-//    try {
-//      String cnv=o.getString(key);      
-//      return String.class;
-//    } catch (Exception e) {
-//    }
     
     try {
       long l=o.getLong(key);
@@ -186,6 +163,91 @@ public class UJSON extends UMB {
 
     return String.class;
   }
+  
+  
+  ///////////////////////////
+  // STATIC CONVENIENCE METHODS
+  
+  
+  static public HashMap<Class, String> jsonTypeMap;
+  
+
+  static public JSONObject jsonCreate(String [] input) {
+    JSONObject o=new JSONObject();
+    for(int i=0; i<input.length; i+=2) {
+      o.setString(input[i], input[i+1]);
+    }
+    return o;
+  }
+  
+  static public Class jsonFieldType(JSONObject o,String key) {
+    try {long val=o.getLong(key); return Long.class;} catch (Exception e) {}
+    try {int val=o.getInt(key); return Integer.class;} catch (Exception e) {}
+    try {float val=o.getFloat(key); return Float.class;} catch (Exception e) {}
+    try {Double val=o.getDouble(key); return Double.class;} catch (Exception e) {}
+    try {String val=o.getString(key); return String.class;} catch (Exception e) {}
+    try {boolean val=o.getBoolean(key); return Boolean.class;} catch (Exception e) {}
+    try {JSONArray val=o.getJSONArray(key); return JSONArray.class;} catch (Exception e) {}
+    
+    return JSONObject.class;
+  }
+  
+  static public String[] jsonKeys(JSONObject o) {
+    String res[]=(String[])o.keys().toArray(new String[o.size()]);
+    Arrays.sort(res);
+    return res;
+  }
+
+  static public JSONObject jsonRemove(JSONObject o,String keyList) {
+    String tok[]=PApplet.split(keyList, ',');
+    
+    for(String s : tok) {
+      if(o.hasKey(s)) o.remove(s);
+    }
+    
+    return o;
+  }
+
+  static public String jsonAttrib(JSONObject o) {
+    if(jsonTypeMap==null) {
+      jsonTypeMap=new HashMap<Class, String>();
+      jsonTypeMap.put(Integer.class, "int");
+      jsonTypeMap.put(Long.class, "long");
+      jsonTypeMap.put(Double.class, "int");
+      jsonTypeMap.put(Float.class, "float");
+      jsonTypeMap.put(String.class, "String");
+      jsonTypeMap.put(Boolean.class, "bool");
+      jsonTypeMap.put(JSONObject.class, "JSONObj");
+      jsonTypeMap.put(JSONArray.class, "JSONArr");
+    }
+    
+    StringBuffer buf=strBufGet();
+
+    String keys[]=jsonKeys(o);
+
+    for(String key : keys) {
+      if(buf.length()>0) buf.append(',');
+      
+      Class cl=jsonFieldType(o, key);
+            
+      buf.append(key).append('=').append(jsonTypeMap.get(cl));
+      try {
+        if(cl==JSONObject.class && o.isNull(key)) 
+          buf.append("[]");
+        else if(cl==JSONObject.class) 
+          buf.append(strf("[%d]",o.getJSONObject(key).size()));
+        else if(cl==JSONArray.class && o.isNull(key))
+          buf.append("[]");
+        else if(cl==JSONArray.class) 
+          buf.append(strf("[%d]",o.getJSONArray(key).size()));
+      } catch (Exception e) {
+//        e.printStackTrace();
+      }
+    }
+    
+    return "["+strBufDispose(buf)+"]";
+  }
+
   
 /*  public void printJSON(JSONObject o) {
     ArrayList<String> str=new ArrayList<String>();

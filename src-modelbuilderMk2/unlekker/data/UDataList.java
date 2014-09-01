@@ -2,10 +2,11 @@ package unlekker.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 
 import processing.core.PVector;
+import processing.data.Table;
+import processing.data.TableRow;
 import unlekker.mb2.util.UMB;
 
 
@@ -19,7 +20,15 @@ import unlekker.mb2.util.UMB;
 public class UDataList extends UMB implements Iterable<UDataPoint> {
   public static int MIN=0,MAX=1,AVG=2,MEDIAN=3;
   
+  UFilter<UDataPoint> comparator=null;
+  UFilter<UDataPoint> filter=null;
+  
+  
+  boolean UFilterWarning=false;
+  
   private ArrayList<UDataPoint> data;
+  private ArrayList<UDataPoint> dataFiltered=null;
+  
   public String name="none";
   public String description="No description";
   
@@ -39,16 +48,111 @@ public class UDataList extends UMB implements Iterable<UDataPoint> {
   }
 
   public UDataList add(UDataPoint p) {
+    dataFiltered=null;
     data.add(p);
     return this;
   }
   
   public UDataList add(int index,UDataPoint p) {
+    dataFiltered=null;
     data.add(index, p);
     return this;
   }
+
   
+
+  ////////////// TO TABLE
+
+    
+  public Table toTable() {
+    return toTable(null);
+  }
+
+    public Table toTable(String keyOrder[]) {
+    Table tab=new Table();
+    
+    UDataPoint first=get(0);
+    boolean hasTime= first.time()!=null ? true : false;
+    
+    String time="time",timestamp="timestamp";
+    
+    if(hasTime) {
+      tab.addColumn(time);
+      tab.addColumn(timestamp);
+    }
+    
+    if(keyOrder==null) {
+      for(String col : first.keys()) {
+        tab.addColumn(col);
+      }
+    }
+    else {
+      for(String key : keyOrder) tab.addColumn(key);
+    }
+    
+    for(UDataPoint tmp : data) {
+      TableRow row=tab.addRow();
+      if(hasTime && tmp.time()!=null) {
+        row.setString(time, tmp.time().str());
+        row.setString(timestamp, ""+tmp.time().get());
+      }
+      
+      for(String key : tab.getColumnTitles()) {
+        row.setString(key,tmp.getValue(key));
+      }      
+    }
+    
+    return tab;
+  }
   
+
+  ////////////// COMPARISON / SORT / FILTER
+
+  public UDataList setComparator(UFilter<UDataPoint> comp) {
+    comparator=comp;
+    return this;
+  }
+
+  public UDataList setFilter(UFilter<UDataPoint> comp) {
+    filter=comp;
+    return this;
+  }
+  
+  public boolean contains(UDataPoint cmp) {
+    return indexOf(cmp)>-1;
+  }
+
+  public int indexOf(UDataPoint cmp) {
+    ArrayList<UDataPoint> theData=get();
+      
+    if(comparator==null) {      
+      if(!UFilterWarning) {
+        log("UDataList: No UFilter set (use setUFilter())");
+        UFilterWarning=true;
+      }
+      return -1;
+    }
+    
+    int index=0;
+    
+    for(UDataPoint tmp : theData) {
+      if(comparator.compare(cmp, tmp)==0) return index;
+      index++;
+    }
+    
+    return -1;
+  }
+  
+  public UDataList sort() {
+    if(comparator!=null) {
+      Collections.sort(data,comparator);
+    }
+    else {
+      Collections.sort(data);
+    }
+    
+    return this;
+  }
   
   ////////////// NUMERIC ANALYSIS OF LISTS OF VALUES
 
@@ -195,7 +299,24 @@ public class UDataList extends UMB implements Iterable<UDataPoint> {
     
     return val;
   }
-  
+
+  public <T> ArrayList<T> getUniqueValues(String key, Class<T> classType) {
+    ArrayList<T> val=new ArrayList<T>();
+    
+    for(UDataPoint tmp : data) {
+      T pt;
+      try {
+        pt=classType.cast(tmp.getObject(key));
+        if(!val.contains(pt)) val.add(pt);
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        log("Error: "+classType.getSimpleName()+" "+tmp.getObject(key));
+      }
+    }
+    
+    return val;
+  }
+
   /**
    * <p>EXPERIMENTAL AND UNTESTED: Returns ArrayList<T> of values stored in the UDataPoints in 
    * the list under "key", where T is the class the stored object should be cast to. If
@@ -256,6 +377,8 @@ public class UDataList extends UMB implements Iterable<UDataPoint> {
   }
   
   public UDataPoint remove(int index) {
+    dataFiltered=null;
+    
     return data.remove(index);
   }
 
@@ -274,6 +397,16 @@ public class UDataList extends UMB implements Iterable<UDataPoint> {
   }
   
   public ArrayList<UDataPoint> get() {
+    if(filter!=null) {
+      if(dataFiltered!=null) {
+        dataFiltered=new ArrayList<UDataPoint>();
+        for(UDataPoint tmp : data) {
+          if(filter.accept(tmp)) dataFiltered.add(tmp);
+        }
+      }
+      return dataFiltered;
+    }
+
     return data;
   }
 
@@ -301,7 +434,7 @@ public class UDataList extends UMB implements Iterable<UDataPoint> {
   }
 
   public void sortByTime() {
-    Collections.sort(data, new Comparator() 
+    Collections.sort(data, new UFilter() 
     {
 
      public int compare(Object o1, Object o2) 

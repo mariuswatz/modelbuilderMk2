@@ -41,6 +41,7 @@ public class UTime extends UMB {
 
   public UTime() {
     cal=Calendar.getInstance();
+    set(cal.getTimeInMillis());
   }
 
   public UTime(String timestr) {
@@ -95,6 +96,38 @@ public class UTime extends UMB {
     log(getDateFormats());
   }
   
+  
+  static public long IOSOFFSET=-1;
+
+  // parameter "t" is a iOS timestamp, stored as seconds since Jan 1, 2001.
+  static public long fromiOS(long t) {
+    
+    // calculate IOSOFFSET if necessary
+    if (IOSOFFSET<0) {
+      // Objective-C timestamps are in seconds since Jan 1, 2001, while 
+      // Java timestamps are in milliseconds since Jan 1, 1970. Hence we
+      // need to calculate a timestamp IOSOFFSET (in msec) between those two
+      // dates.
+      Calendar cal=Calendar.getInstance();
+      cal.clear();
+      
+      // get start value
+      cal.set(1970, Calendar.JANUARY, 1);  
+      long tmp=cal.getTimeInMillis();
+
+      // get final value
+      cal.set(2001, Calendar.JANUARY, 1);
+      
+      // offset is the difference
+      IOSOFFSET=cal.getTimeInMillis()-tmp;
+    }
+
+    // t is in seconds, so multiply x1000 to get millis,
+    // then add IOSOFFSET to get. "1000l" means "1000 as
+    // a long"
+    return t*1000l+IOSOFFSET;
+  }
+
 
   ////////////////
   

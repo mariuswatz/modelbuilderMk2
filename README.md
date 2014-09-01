@@ -20,6 +20,11 @@ ModelbuilderMk2 also became a primary tool for teaching principles of parametric
 
 ### Updates
 
+#### 31 August, 2014 (build 0158)
+
+- **Bug fix**: UGeo.removeDupl() bug, as observed in UGeoGroup01 example pre-0158.
+- **unlekker.data** keeps evolving, but should be considered unstable and likely to change.
+
 #### August, 2014
 
 Some good Modelbuilder news:

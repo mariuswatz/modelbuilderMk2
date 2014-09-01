@@ -95,9 +95,16 @@ public class UTestTriangleFanBug extends UTest {
   
   
   public void draw() {
-    UMB.pstroke(255).pnoFill();
     p.translate(p.width/2, p.height/2);
     main.nav.doTransforms();
+
+//    p.noStroke();
+//    p.fill(180);
+//    UMB.drawRoundedTube(100, 100, 400, 400, 20, false);
+//    
+//    UMB.pstroke(255).pnoFill();
+//    pline(100,0, 100,100);
+//    pline(400,0, 400,400);
     
     vl.draw();
     vl2.draw();
@@ -105,10 +112,9 @@ public class UTestTriangleFanBug extends UTest {
     UMB.last(vvl).draw();
     
     if(p.mousePressed) geo.draw(vvl);
-//    vl.bb().draw();
+    vl.bb().draw();
     
-    p.fill(180);
-    geo.draw();
+//    geo.draw();
   }
 
   
