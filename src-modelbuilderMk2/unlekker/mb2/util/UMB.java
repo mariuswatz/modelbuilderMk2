@@ -758,7 +758,42 @@ public class UMB implements UConst {
     return UMB.UMB;
   }
 
-  public static UMB draw(ArrayList<UVertexList> vl) {
+  public static <T> UMB draw(ArrayList<T> vl) {
+    return draw(vl,false);
+  }
+
+  public static <T> UMB draw(ArrayList<T> input,boolean drawGrid) {
+    if(input==null || input.size()<1) return UMB.UMB;
+    
+    Class cl=input.get(0).getClass();
+    
+    if(cl.equals(UVertexList.class)) {
+      ArrayList<UVertexList> tmp=(ArrayList<UVertexList>)input;
+      for(UVertexList l:tmp) l.draw();
+      if(drawGrid) {
+        int nx=tmp.get(0).size();
+        int ny=tmp.size();
+        
+        for(int j=0; j<nx; j++) {
+          g.beginShape();
+            for(int i=0; i<ny; i++) {
+            pvertex(tmp.get(i).get(j));
+          }
+          g.endShape();
+        }
+      }
+    }
+    else {
+      if(cl.equals(UGeo.class)) {
+        for(T g : input) {
+          ((UGeo)g).draw();
+        }
+      }
+    }
+    return UMB.UMB;
+  }
+
+/*  public static UMB draw(ArrayList<UVertexList> vl) {
     return draw(vl,false);
   }
 
@@ -778,7 +813,7 @@ public class UMB implements UConst {
     }
     return UMB.UMB;
   }
-
+*/
 
 
   
@@ -1225,8 +1260,8 @@ public class UMB implements UConst {
    * @param prob
    * @return
    */
-  public boolean rndProb(float prob) {
-    return rnd.prob(prob>100 ? 100 : prob);
+  public boolean rndProb(float prob) {    
+    return rnd.prob(prob>100 || prob<0 ? constrain(prob, 0, 100) : prob);
   }
 
   public static boolean rndBool() {
@@ -1391,7 +1426,7 @@ public class UMB implements UConst {
 
   public static UMB depth() {
     if(checkGraphicsSet()) {
-      papplet.hint(DISABLE_DEPTH_TEST);
+      papplet.hint(ENABLE_DEPTH_TEST);
     }
     return UMB.UMB;
   }

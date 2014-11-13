@@ -14,7 +14,7 @@ public class UApp extends UMB {
   public static String CONFW="width",CONFH="height",
       CONFWINX="winX",CONFWINY="winY",
       CONFPATH="path",CONFDATAPATH="datapath",
-      CONFDECORATED="decorated",CONFRENDERER="renderer";
+      CONFDECORATED="decorated",CONFONTOP="ontop",CONFRENDERER="renderer";
   public static int APPSWITCH=0,APPINITCOLORS=1,
       APPREINIT=2;
       
@@ -52,9 +52,10 @@ public class UApp extends UMB {
     
     logDivider(name+": init");
     if(p.frame!=null && 
-        !conf.getBool(CONFDECORATED)) try {
+        (!conf.getBool(CONFDECORATED) || !conf.getBool(CONFONTOP))) try {
       p.frame.dispose();
-      p.frame.setUndecorated(true);
+      p.frame.setUndecorated(!conf.getBool(CONFDECORATED));
+      p.frame.setAlwaysOnTop(conf.getBool(CONFONTOP));
     }
     catch(Exception e) {
       log(e.toString());
@@ -86,11 +87,19 @@ public class UApp extends UMB {
     setupWindow();
     return this;
   }
-  
+
   public UApp setup(int w,int h,int locx,int locy,String renderer,boolean hasFrame) {
+    return setup(w,h,locx,locy,renderer,hasFrame,false);
+  }
+
+  public UApp setup(int w,int h,int locx,int locy,
+      String renderer,boolean hasFrame,boolean isOnTop) {
     conf.put(CONFW,w).put(CONFH,h);
     conf.put(CONFWINX,locx).put(CONFWINY,locy);
     conf.put(CONFDECORATED,hasFrame).put(CONFRENDERER, renderer);
+    conf.put(CONFONTOP,isOnTop);
+     
+
     setupWindow();
     return this;
   }

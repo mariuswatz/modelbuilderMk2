@@ -168,7 +168,7 @@ public class UGeoGenerator extends UMB {
       float t=map(i,0,res-1,-ext,ext);
       
       float x=circleXforY(t);
-      log(nf(t)+" "+nf(x)+" "+nf(RAD_TO_DEG*Math.asin(t)));
+//      log(nf(t)+" "+nf(x)+" "+nf(RAD_TO_DEG*Math.asin(t)));
       l.add(x,t);
     }
 
@@ -395,15 +395,15 @@ public class UGeoGenerator extends UMB {
     w*=0.5f;
     UVertexList vl,vl2;
     
-    vl=UVertexList.circle(w, 4).rotZ(HALF_PI*0.5f).reverse();
+//    vl=UVertexList.circle(w, 4).rotZ(HALF_PI*0.5f).reverse();
 //    vl=new UVertexList();
-//    vl=new UVertexList().add(-w,-w).add(w,-w).
-//        add(w,w).add(-w,w);
+    vl=new UVertexList().add(-w,w).add(w,w).
+        add(w,-w).add(-w,-w);
     vl2=vl.copy().translate(0,0,w);
     vl.translate(0,0,-w);
     
-    log(vl.str());
-    log(vl2.str());
+//    log(vl.str());
+//    log(vl2.str());
     geo=new UGeo();
     geo.beginShape(QUAD_STRIP).
     vertex(vl.get(3)).vertex(vl.get(0)).

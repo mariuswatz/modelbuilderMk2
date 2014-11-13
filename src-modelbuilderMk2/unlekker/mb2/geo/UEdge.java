@@ -15,13 +15,15 @@ import unlekker.mb2.util.UMB;
  */
 public class UEdge extends UMB {
   public static int globalID=0;
-
+  
+  
   public UGeo parent;
   int vID[];
   public UVertex v[];
   public int ID;  
 
   protected ArrayList<UFace> faces;
+  protected float theDist=-1;
   
   public UEdge() {
     ID=globalID++;
@@ -95,7 +97,12 @@ public class UEdge extends UMB {
 //      v[1]=(v1.ID<v2.ID ? v2 : v1);
     }
     
+    theDist=v1.dist(v2);
     return this;
+  }
+
+  public float dist() {
+    return theDist;
   }
 
   public UVertex[] getV(boolean force) {
@@ -108,6 +115,20 @@ public class UEdge extends UMB {
     
     v=parent.getVByID(vID,v);
     return v;
+  }
+
+  public UVertex getV0() {
+    if(parent==null || v!=null) return v[0];
+    
+    v=parent.getVByID(vID,v);
+    return v[0];
+  }
+
+  public UVertex getV1() {
+    if(parent==null || v!=null) return v[1];
+    
+    v=parent.getVByID(vID,v);
+    return v[1];
   }
 
   public boolean equals(UEdge edge) {
@@ -132,7 +153,8 @@ public class UEdge extends UMB {
   public boolean equals(UVertex v1,UVertex v2) {
     if(v1==null) log("v1 null");
     if(v2==null) log("v2 null");
-    return equals(v1.ID,v2.ID);
+    return v1.equals(v2);
+//    return equals(v1.ID,v2.ID);
 //    if(v1.ID>v2.ID) {
 //      UVertex tmp=v2;
 //      v2=v1;

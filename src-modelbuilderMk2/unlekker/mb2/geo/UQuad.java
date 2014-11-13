@@ -43,9 +43,16 @@ public class UQuad extends UFace  {
     vID[2]=f2.vID[0];
     vID[3]=f1.vID[2];
     
-    log(str(vID)+" "+str(f1.vID)+" "+str(f2.vID));
+//    log(str(vID)+" "+str(f1.vID)+" "+str(f2.vID));
   }
   
+  public UFace setColor(int a) {
+    col=a;
+    f[0].setColor(a);
+    f[1].setColor(a);
+    return this;
+  }
+
   public UQuad(UQuad v) {
     this();
     set(v);

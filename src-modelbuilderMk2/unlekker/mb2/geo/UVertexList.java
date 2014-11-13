@@ -1117,6 +1117,7 @@ public class UVertexList extends UMB implements Iterable<UVertex> {
   }
 
   public boolean isClosed() {
+    if(size()<1) return false;
     return last().equals(first());
   }
   

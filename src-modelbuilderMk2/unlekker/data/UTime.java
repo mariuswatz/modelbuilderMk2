@@ -8,7 +8,7 @@ import java.util.Locale;
 
 import unlekker.mb2.util.UMB;
 
-public class UTime extends UMB {
+public class UTime extends UMB implements Comparable<UTime> {
   public static long TSEC=1000;
   public static long TMIN=60*TSEC;
   public static long THR=60*TMIN;
@@ -437,6 +437,10 @@ public class UTime extends UMB {
   public UTime set(long t) {
     this.t = t;
     return this;
+  }
+
+  public int compareTo(UTime o) {    
+    return (int)(o.get()-get());
   }
   
 

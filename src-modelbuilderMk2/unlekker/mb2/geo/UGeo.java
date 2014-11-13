@@ -57,7 +57,7 @@ public class UGeo extends UMB  {
     this();
 
     set(v);
-    log("UGeo(UGeo v)UGeo(UGeo v) "+str());
+//    log("UGeo(UGeo v)UGeo(UGeo v) "+str());
   }
 
   /** Returns a copy of this UGeo instance.
@@ -65,7 +65,7 @@ public class UGeo extends UMB  {
    * @return
    */
   public UGeo copy() {
-    log("copy "+str());
+//    log("copy "+str());
     return new UGeo(this);
   }
 
@@ -162,6 +162,7 @@ public class UGeo extends UMB  {
     if(faceID<sizeF()) {
       remove(getF(faceID));
       vlNormal=null;
+      tainted=true;
     }
     return this;
   }
@@ -262,7 +263,17 @@ public class UGeo extends UMB  {
     return this;
   }
 
-  
+
+  public static UMB enable(ArrayList<UGeo> geo,int opt) {
+    for(UGeo g:geo) g.enable(opt);
+    return UMB.UMB;
+  }
+
+  public static UMB disable(ArrayList<UGeo> geo,int opt) {
+    for(UGeo g:geo) g.disable(opt);
+    return UMB.UMB;
+  }
+
   public UGeo setV(UVertexList vl) {
     this.vl=vl;
     if(faces.size()>0) {
@@ -297,6 +308,9 @@ public class UGeo extends UMB  {
            map(cnt,0,model.sizeF(),10,100),
            "Adding faces");
    }
+   
+   setOptions(model.options);
+   
    task.done();
    
    return this;

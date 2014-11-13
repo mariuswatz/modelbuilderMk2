@@ -29,7 +29,14 @@ public class UEdgeList extends UMB implements Iterable<UEdge> {
     this();
     if(model!=null) parent=model;    
     edges=new ArrayList<UEdge>();
-    for(UFace ff:model.getF()) {
+    reset();
+  }
+
+  public UEdgeList reset() {
+    if(edges==null) return this;
+    edges.clear();
+    
+    for(UFace ff:parent.getF()) {
       add(ff);
 //      UVertex vv[]=ff.getV();
 //      add(vv[0],vv[1]).add(ff);
@@ -37,8 +44,9 @@ public class UEdgeList extends UMB implements Iterable<UEdge> {
 //      add(vv[2],vv[0]).add(ff);
     }
     
+    return this;
   }
-
+  
   public void add(UFace f) {
 //    UVertex vv[]=f.getV();
 //

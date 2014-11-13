@@ -119,6 +119,28 @@ public class UNav3D extends UMB {
       altIsDown=true;
     }
     
+    if(papplet.key==CODED) {
+      if(papplet.keyCode==java.awt.event.KeyEvent.VK_HOME) {
+        reset();
+        if(ctrlIsDown) rot.set(0,HALF_PI,0);
+        else rot.set(0,0,0);
+      }
+      if(papplet.keyCode==java.awt.event.KeyEvent.VK_END) {
+        reset();
+        if(ctrlIsDown) rot.set(-HALF_PI*0.5f,-HALF_PI*0.5f,0);
+        else rot.set(HALF_PI,0,0);
+      }
+      
+      if(papplet.keyCode==java.awt.event.KeyEvent.VK_PAGE_UP) {
+        reset();
+        rot.set(PI*0.66f,HALF_PI*0.33f);
+      }
+      if(papplet.keyCode==java.awt.event.KeyEvent.VK_PAGE_DOWN) {
+        reset();
+        rot.set(-PI*0.75f,PI*0.75f);
+      }
+    }
+
     float mult=1;
     if(ctrlIsDown) mult=10; 
 
@@ -150,8 +172,8 @@ public class UNav3D extends UMB {
       
 //    }
     
-    if(ctrlIsDown && 
-        ev.getKeyCode()==java.awt.event.KeyEvent.VK_HOME) reset();
+//    if(ctrlIsDown && 
+//        ev.getKeyCode()==java.awt.event.KeyEvent.VK_HOME) reset();
 
   }
 
@@ -202,7 +224,16 @@ public class UNav3D extends UMB {
 //    else 
       trans.z=trans.z+step*guiSpeed;
   }
-  
+
+  public UNav3D fromStringData(String s) {
+    s=s.substring(8,s.length()-1);
+    log("fromStringData "+s);
+    String tok[]=getPApplet().split(s,' ');
+    trans.set(tok[0]);
+    rot.set(tok[1]);
+    return this;
+}
+
   public String toStringData() {
     return "[UNav3D "+trans.toString()+" "+rot.toString()+"]";
 }

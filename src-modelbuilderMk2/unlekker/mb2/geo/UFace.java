@@ -503,7 +503,7 @@ public class UFace extends UMB  {
     float a=v[0].dist(v[1]);
     float b=v[1].dist(v[2]);
     float c=v[2].dist(v[0]);
-    float s=(a+b+c)/2;
+    float s=(a+b+c)/2f;
     float area=(float)Math.sqrt(s*(s-a)*(s-b)*(s-c));
     return area;
 }

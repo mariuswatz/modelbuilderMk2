@@ -336,6 +336,21 @@ public class UVertex extends UMB  {
     return String.format(FSTRXY,nf(x,2),nf(y,2));
   }
 
+  public UVertex set(String s) {
+    try {
+      if(s.charAt(0)=='<') s=s.substring(1,s.length()-1);
+      String tok[]=getPApplet().split(s, ',');
+      if(tok.length>1) set(x,y,parseFloat(tok[2]));
+      if(tok.length>0) set(x,parseFloat(tok[1]),z);
+      if(tok.length>0) set(parseFloat(tok[0]),y,z);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return this;
+  }
+  
   public String strData() {
     return toString(4);
   }
